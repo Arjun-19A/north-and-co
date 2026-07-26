@@ -10,7 +10,6 @@ import Collections from "./Pages/Collections";
 import Cart from "./Pages/Cart";
 import Shop from "./Pages/Shop";
 import ProductDetails from "./components/ProductDetails";
-
 import Account from "./Pages/Account";
 import Profile from "./components/Accounts/Profile";
 import Orders from "./components/Accounts/Orders";
@@ -21,6 +20,11 @@ import CheckoutLayout from "./components/layouts/CheckoutLayout";
 import OrderDetails from "./Pages/OrderDetails";
 import OrderSuccess from "./Pages/OrderSuccess";
 import ScrollToTop from "./components/ScrollToTop";
+import AdminLayout from "./components/layouts/AdminLayout";
+import Dashboard from "./components/Admin/Dashboard";
+import AdminProducts from "./Pages/Admin/AdminProducts";
+import AdminOrders from "./Pages/Admin/AdminOrders";
+import AdminCustomers from "./Pages/Admin/AdminCutomer";
 
 const App = () => {
   return (
@@ -44,6 +48,13 @@ const App = () => {
               <Route path="addresses" element={<Addresses />} />
             </Route>
           </Route>
+        </Route>
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="customers" element={<AdminCustomers />} />
         </Route>
 
         <Route element={<CheckoutLayout />}>

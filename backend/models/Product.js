@@ -80,7 +80,6 @@ const productSchema = new mongoose.Schema(
           },
         },
       ],
-      // validate: [(arr) => arr.length > 0, "At least one image is required"],
     },
     isFeatured: {
       type: Boolean,

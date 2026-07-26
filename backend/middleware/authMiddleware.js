@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 const protect = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.startsWith("Bearer")
+    const token = req.headers.authorization?.startsWith("Bearer ")
       ? req.headers.authorization.split(" ")[1]
       : null;
 
@@ -33,8 +33,24 @@ const protect = async (req, res, next) => {
   }
 };
 
+const admin = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({
+      message: "Not authenticated",
+    });
+  }
+
+  if (req.user.role !== "admin") {
+    return res.status(403).json({
+      message: "Admin access required",
+    });
+  }
+
+  next();
+};
+
 const optionalProtect = async (req, res, next) => {
-  const token = req.headers.authorization?.startsWith("Bearer")
+  const token = req.headers.authorization?.startsWith("Bearer ")
     ? req.headers.authorization.split(" ")[1]
     : null;
 
@@ -64,4 +80,5 @@ const optionalProtect = async (req, res, next) => {
 module.exports = {
   protect,
   optionalProtect,
+  admin,
 };

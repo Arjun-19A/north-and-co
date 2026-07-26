@@ -44,7 +44,8 @@ const createOrder = async (req, res) => {
       return {
         product: item.productId._id,
         name: item.productId.name,
-        image: item.productId.images[0].url,
+        sku: item.productId.sku,
+        image: item.productId.images?.[0]?.url || "",
         price: item.price,
         quantity: item.quantity,
         size: item.size,
@@ -109,7 +110,7 @@ const createOrder = async (req, res) => {
       stack: error.stack,
     });
   }
-}
+};
 
 const fetchOrders = async (req, res) => {
   try {
@@ -129,14 +130,11 @@ const fetchOrders = async (req, res) => {
       message: "Server Error",
     });
   }
-}
+};
 
 const fetchOrderById = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id).populate(
-      "orderItems.product",
-      "name images",
-    );
+    const order = await Order.findById(req.params.id);
 
     if (!order) {
       return res.status(404).json({
@@ -160,10 +158,10 @@ const fetchOrderById = async (req, res) => {
       message: "Server Error",
     });
   }
-}
+};
 
 module.exports = {
-    createOrder,
-    fetchOrders,
-    fetchOrderById
-}
+  createOrder,
+  fetchOrders,
+  fetchOrderById,
+};

@@ -227,7 +227,7 @@ const profileUpdate = async (req, res) => {
   }
 };
 
-const addAdress = async (req, res) => {
+const addAddress = async (req, res) => {
   try {
     const {
       fullName,
@@ -474,7 +474,7 @@ module.exports = {
   tokenRefresh,
   logout,
   profileUpdate,
-  addAdress,
+  addAddress,
   savedAddress,
   updateAddress,
   deleteAddress,

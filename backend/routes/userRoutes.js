@@ -8,7 +8,7 @@ const {
   tokenRefresh,
   logout,
   profileUpdate,
-  addAdress,
+  addAddress,
   savedAddress,
   updateAddress,
   deleteAddress,
@@ -37,7 +37,7 @@ router.put("/profile", protect, profileUpdate);
 
 // POST /api/user/addresses
 // Add new address
-router.post("/addresses", protect, addAdress);
+router.post("/addresses", protect, addAddress);
 
 // GET /api/user/addresses
 // Get all saved addresses
