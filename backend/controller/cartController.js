@@ -10,6 +10,29 @@ const getCart = async (userId, guestId) => {
   return null;
 };
 
+const attachStockToCart = async (cart) => {
+  const updatedProducts = await Promise.all(
+    cart.products.map(async (item) => {
+      const product = await Product.findById(item.productId);
+
+      return {
+        ...item.toObject(),
+
+        countInStock: product?.countInStock || 0,
+
+        isAvailable: product ? product.countInStock > 0 : false,
+
+        hasEnoughStock: product ? item.quantity <= product.countInStock : false,
+      };
+    }),
+  );
+
+  return {
+    ...cart.toObject(),
+    products: updatedProducts,
+  };
+};
+
 const calculateTotal = (products) =>
   products.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -26,6 +49,12 @@ const addProduct = async (req, res) => {
     const product = await Product.findById(productId);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
+    if (product.countInStock < quantity) {
+      return res.status(400).json({
+        message: `Only ${product.countInStock} items available in stock`,
+      });
+    }
+
     let cart = await getCart(userId, guestId);
     if (cart) {
       const productIndex = cart.products.findIndex(
@@ -36,7 +65,15 @@ const addProduct = async (req, res) => {
       );
 
       if (productIndex > -1) {
-        cart.products[productIndex].quantity += quantity;
+        const newQuantity = cart.products[productIndex].quantity + quantity;
+
+        if (newQuantity > product.countInStock) {
+          return res.status(400).json({
+            message: `Only ${product.countInStock} items available in stock`,
+          });
+        }
+
+        cart.products[productIndex].quantity = newQuantity;
       } else {
         cart.products.push({
           productId,
@@ -52,7 +89,10 @@ const addProduct = async (req, res) => {
       cart.totalPrice = calculateTotal(cart.products);
 
       await cart.save();
-      return res.status(200).json(cart);
+
+      const responseCart = await attachStockToCart(cart);
+
+      return res.status(200).json(responseCart);
     } else {
       const newCart = await Cart.create({
         user: userId ? userId : undefined,
@@ -77,7 +117,9 @@ const addProduct = async (req, res) => {
         totalPrice: (product.discountPrice || product.price) * quantity,
       });
 
-      return res.status(201).json(newCart);
+      const responseCart = await attachStockToCart(newCart);
+
+      return res.status(201).json(responseCart);
     }
   } catch (error) {
     console.error(error);
@@ -93,7 +135,12 @@ const updateQuantity = async (req, res) => {
 
   try {
     let cart = await getCart(userId, guestId);
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+    if (!cart) {
+      return res.status(404).json({
+        message: "Cart not found",
+      });
+    }
 
     const productIndex = cart.products.findIndex(
       (p) =>
@@ -108,23 +155,39 @@ const updateQuantity = async (req, res) => {
       });
     }
 
-    if (quantity > 0) {
-      cart.products[productIndex].quantity = quantity;
-    } else {
+    if (quantity <= 0) {
       cart.products.splice(productIndex, 1);
+    } else {
+      const product = await Product.findById(productId);
+
+      if (!product) {
+        return res.status(404).json({
+          message: "Product not found",
+        });
+      }
+
+      if (quantity > product.countInStock) {
+        return res.status(400).json({
+          message: `Only ${product.countInStock} items available`,
+        });
+      }
+
+      cart.products[productIndex].quantity = quantity;
     }
 
     cart.totalPrice = calculateTotal(cart.products);
 
     await cart.save();
 
-    return res.status(200).json(cart);
+    const responseCart = await attachStockToCart(cart);
 
-    // return res.status(404).json({
-    //   message: "Product not found in cart",
-    // });
+    return res.status(200).json(responseCart);
   } catch (error) {
-    return res.status(404).json({ message: " Product not found in cart." });
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Server Error",
+    });
   }
 };
 
@@ -150,7 +213,10 @@ const removeProduct = async (req, res) => {
       cart.totalPrice = calculateTotal(cart.products);
 
       await cart.save();
-      return res.status(200).json(cart);
+
+      const responseCart = await attachStockToCart(cart);
+
+      return res.status(200).json(responseCart);
     } else {
       return res.status(404).json({ message: "Product Not Found in cart" });
     }
@@ -173,8 +239,12 @@ const fetchCart = async (req, res) => {
       });
     }
 
-    res.json(cart);
+    const responseCart = await attachStockToCart(cart);
+
+    res.json(responseCart);
   } catch (error) {
+    console.error(error);
+
     res.status(500).json({
       message: "Server Error",
     });

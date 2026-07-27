@@ -10,6 +10,7 @@ import {
   selectCartProducts,
   selectCartSubtotal,
   selectCartLoading,
+  selectCartTotal,
 } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
 
@@ -18,6 +19,7 @@ const Cart = () => {
 
   const products = useSelector(selectCartProducts) || [];
   const subtotal = useSelector(selectCartSubtotal);
+  const total = useSelector(selectCartTotal);
   const loading = useSelector(selectCartLoading);
 
   const { userInfo, guestId } = useSelector((state) => state.auth);
@@ -57,6 +59,8 @@ const Cart = () => {
     );
   };
 
+  const hasStockIssue = products.some((item) => !item.hasEnoughStock);
+
   return (
     <section className="pt-10 md:pt-14 min-h-screen bg-stone-100">
       <div className="max-w-355 mx-auto px-5 md:px-8 lg:px-10 py-20">
@@ -83,7 +87,11 @@ const Cart = () => {
               removeProduct={removeProduct}
             />
 
-            <OrderSummary subtotal={subtotal} />
+            <OrderSummary
+              subtotal={subtotal}
+              total={total}
+              hasStockIssue={hasStockIssue}
+            />
           </div>
         )}
       </div>

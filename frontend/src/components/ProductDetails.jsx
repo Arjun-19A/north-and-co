@@ -22,9 +22,8 @@ const ProductDetails = () => {
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [mainImage, setMainImage] = useState("");
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProductDetails(id));
@@ -36,17 +35,20 @@ const ProductDetails = () => {
     }
   }, [dispatch, selectedProduct]);
 
-  useEffect(() => {
-    if (selectedProduct) {
-      setMainImage(selectedProduct.images?.[0]?.url || "");
-      setSelectedSize(selectedProduct.sizes?.[0] || "");
-      setSelectedColor(selectedProduct.colors?.[0] || "");
-    }
-  }, [selectedProduct]);
+  const mainImage = selectedProduct?.images?.[selectedImage]?.url || "";
+
+  const activeSize = selectedSize || selectedProduct?.sizes?.[0] || "";
+
+  const activeColor = selectedColor || selectedProduct?.colors?.[0] || "";
 
   const handleAddToCart = async () => {
-    if (!selectedSize) {
-      alert("Please select a size");
+    if (selectedProduct.countInStock === 0) {
+      alert("This product is currently out of stock");
+      return;
+    }
+
+    if (quantity > selectedProduct.countInStock) {
+      alert(`Only ${selectedProduct.countInStock} items are available`);
       return;
     }
 
@@ -54,8 +56,8 @@ const ProductDetails = () => {
       addToCart({
         productId: selectedProduct._id,
         quantity,
-        size: selectedSize,
-        color: selectedColor,
+        size: activeSize,
+        color: activeColor,
         guestId,
       }),
     ).unwrap();
@@ -94,7 +96,6 @@ const ProductDetails = () => {
                   }`}
                   onClick={() => {
                     setSelectedImage(index);
-                    setMainImage(image.url);
                   }}
                 >
                   <img
@@ -184,7 +185,7 @@ const ProductDetails = () => {
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   className={`h-9 w-9 rounded-full border transition
-${selectedColor === color ? "border-black" : "border-white"}`}
+${activeColor === color ? "border-black" : "border-white"}`}
                   style={{
                     backgroundColor: color.toLowerCase(),
                   }}
@@ -202,7 +203,7 @@ ${selectedColor === color ? "border-black" : "border-white"}`}
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={`h-11 w-11 border text-sm transition ${
-                    selectedSize === size
+                    activeSize === size
                       ? "bg-black text-white border-black"
                       : "border-gray-300 hover:border-black"
                   }`}
@@ -227,7 +228,11 @@ ${selectedColor === color ? "border-black" : "border-white"}`}
                 {quantity}
               </span>
               <button
-                onClick={() => setQuantity(quantity + 1)}
+                disabled={quantity >= selectedProduct.countInStock}
+                onClick={() =>
+                  quantity < selectedProduct.countInStock &&
+                  setQuantity(quantity + 1)
+                }
                 className="w-10 h-10 flex items-center justify-center hover:opacity-50 transition-opacity"
               >
                 +
@@ -237,15 +242,37 @@ ${selectedColor === color ? "border-black" : "border-white"}`}
           <div>
             <button
               onClick={handleAddToCart}
-              className="w-full h-12 mt-3 text-[12px] tracking-[0.2em] uppercase font-light transition-all duration-300  text-white bg-black
-hover:bg-zinc-700 disabled:opacity-50"
+              disabled={selectedProduct.countInStock === 0}
+              className="
+  w-full h-12 mt-3
+  text-[12px]
+  tracking-[0.2em]
+  uppercase
+  font-light
+  transition-all
+  duration-300
+  text-white
+  disabled:bg-gray-300
+  disabled:cursor-not-allowed
+  bg-black
+  hover:bg-zinc-700
+  "
             >
-              {added ? "✓ Added" : "Add To Cart"}
+              {selectedProduct.countInStock === 0
+                ? "Out of Stock"
+                : added
+                  ? "✓ Added"
+                  : "Add To Cart"}
             </button>
           </div>
-          <button className="w-full mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent">
-            Buy Now
-          </button>
+
+          {selectedProduct.countInStock === 0 ? (
+            ""
+          ) : (
+            <button className="w-full mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent">
+              Buy Now
+            </button>
+          )}
         </div>
       </div>
 

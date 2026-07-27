@@ -169,7 +169,6 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // Fetch
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
@@ -178,7 +177,6 @@ const cartSlice = createSlice({
         }
       })
 
-      // Add
       .addCase(addToCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
@@ -187,7 +185,6 @@ const cartSlice = createSlice({
         }
       })
 
-      // Update
       .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
@@ -196,7 +193,6 @@ const cartSlice = createSlice({
         }
       })
 
-      // Remove
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
@@ -204,8 +200,6 @@ const cartSlice = createSlice({
           saveCartToStorage(action.payload);
         }
       })
-
-      // Merge
       .addCase(mergeCart.fulfilled, (state, action) => {
         state.loading = false;
         state.cart = action.payload;
@@ -213,7 +207,6 @@ const cartSlice = createSlice({
         localStorage.removeItem("cart");
       })
 
-      // Rejected matcher
       .addMatcher(
         (action) =>
           action.type.startsWith("cart/") && action.type.endsWith("/rejected"),

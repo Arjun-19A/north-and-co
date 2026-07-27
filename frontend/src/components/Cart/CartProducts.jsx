@@ -29,6 +29,26 @@ const CartProducts = ({
             <p className="text-[#6b6b6b] text-[15px] font-light">
               Price: ₹{product.price}
             </p>
+
+            {!product.hasEnoughStock && (
+              <span
+                className="
+                w-fit
+                mt-3
+                px-3
+                py-1
+                text-xs
+                uppercase
+                tracking-wider
+                bg-red-100
+                text-red-600
+                "
+              >
+                {product.countInStock === 0
+                  ? "Out of Stock"
+                  : `Only ${product.countInStock} Available`}
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col items-end justify-between shrink-0">

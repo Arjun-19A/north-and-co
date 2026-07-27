@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IoClose, IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import { IoClose, IoCartOutline } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import { IoPersonOutline } from "react-icons/io5";
 import SearchBar from "./SearchBar";
