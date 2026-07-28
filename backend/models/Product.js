@@ -80,7 +80,10 @@ const productSchema = new mongoose.Schema(
           },
         },
       ],
-      // validate: [(arr) => arr.length > 0, "At least one image is required"],
+      validate: [
+        (array) => array.length > 0,
+        "At least one product image is required",
+      ],
     },
     isFeatured: {
       type: Boolean,
@@ -100,7 +103,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    tags: [String],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -115,12 +117,6 @@ const productSchema = new mongoose.Schema(
     metaKeywords: {
       type: String,
     },
-    dimensions: {
-      length: Number,
-      width: Number,
-      height: Number,
-    },
-    weight: Number,
   },
   {
     timestamps: true,

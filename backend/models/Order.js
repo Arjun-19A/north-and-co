@@ -19,6 +19,11 @@ const orderItemSchema = new mongoose.Schema(
       required: true,
     },
 
+    sku: {
+      type: String,
+      required: true,
+    },
+    
     price: {
       type: Number,
       required: true,

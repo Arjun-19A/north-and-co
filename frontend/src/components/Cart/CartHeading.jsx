@@ -1,5 +1,3 @@
-import React from "react";
-
 const CartHeading = ({ products }) => {
   return (
     <div className="mb-3 border-b border-gray-200">

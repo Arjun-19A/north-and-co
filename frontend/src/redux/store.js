@@ -4,6 +4,11 @@ import productReducer from "./slices/productsSlice";
 import cartReducer from "./slices/cartSlice";
 import addressReducer from "./slices/addressSlice";
 import orderReducer from "./slices/orderSlice";
+import adminDashboardReducer from "./slices/adminDashboardSlice";
+import adminProductReducer from "./slices/adminProductSlice";
+import adminOrderReducer from "./slices/adminOrderSlice";
+import adminCustomerReducer from "./slices/adminCustomerSlice";
+import adminAuthReducer from "./slices/adminAuthSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +17,11 @@ const store = configureStore({
     cart: cartReducer,
     address: addressReducer,
     order: orderReducer,
+    dashboard: adminDashboardReducer,
+    adminProducts: adminProductReducer,
+    adminOrders: adminOrderReducer,
+    adminCustomers: adminCustomerReducer,
+    adminAuth: adminAuthReducer,
   },
 });
 
