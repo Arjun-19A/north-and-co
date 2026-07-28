@@ -87,7 +87,7 @@ const ProductDetails = () => {
               {selectedProduct.images?.map((image, index) => (
                 <button
                   key={index}
-                  className={`relative w-16 h-20 md:w-20 md:h-24 overflow-hidden bg-[#EBEBEA] transition-opacity duration-200 opacity-40 ${
+                  className={`relative w-16 h-20 md:w-20 md:h-24 overflow-hidden bg-stone-100 transition-opacity duration-200 opacity-40 ${
                     selectedImage === index
                       ? "opacity-100"
                       : "hover:opacity-70 "
@@ -105,11 +105,11 @@ const ProductDetails = () => {
                 </button>
               ))}
             </div>
-            <div className="flex-1 relative aspect-4/5 overflow-hidden bg-stone-200">
+            <div className="relative aspect-4/5 bg-stone-100">
               <img
                 src={mainImage}
                 alt={selectedProduct.name}
-                className="absolute h-full w-full inset-0 object-cover object-center"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>

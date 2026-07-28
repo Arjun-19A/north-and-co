@@ -5,30 +5,54 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Attach access token to every request
-api.interceptors.request.use(
-  (config) => {
-    const auth = JSON.parse(localStorage.getItem("auth"));
-    const token = auth?.token;
+const getToken = () => {
+  try {
+    const userAuth = JSON.parse(localStorage.getItem("auth")) || {};
+
+    const adminAuth = JSON.parse(localStorage.getItem("adminAuth")) || {};
+
+    return {
+      userToken: userAuth.token,
+      adminToken: adminAuth.token,
+    };
+  } catch (error) {
+    return {
+      userToken: null,
+      adminToken: null,
+    };
+  }
+};
+
+api.interceptors.request.use((config) => {
+  try {
+    const { userToken, adminToken } = getToken();
+
+    let token;
+
+    if (config.url?.includes("/admin")) {
+      token = adminToken;
+    } else {
+      token = userToken;
+    }
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+  } catch (error) {
+    console.log("Auth parse error");
+  }
 
-    return config;
-  },
+  return config;
+});
 
-  (error) => {
-    return Promise.reject(error);
-  },
-);
+let isUserRefreshing = false;
+let isAdminRefreshing = false;
 
-// Refresh token handling
-let isRefreshing = false;
-let failedQueue = [];
+let userQueue = [];
+let adminQueue = [];
 
-const processQueue = (error, token = null) => {
-  failedQueue.forEach((promise) => {
+const processQueue = (queue, error, token = null) => {
+  queue.forEach((promise) => {
     if (error) {
       promise.reject(error);
     } else {
@@ -36,7 +60,7 @@ const processQueue = (error, token = null) => {
     }
   });
 
-  failedQueue = [];
+  queue.length = 0;
 };
 
 api.interceptors.response.use(
@@ -49,15 +73,22 @@ api.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
+      originalRequest &&
       !originalRequest._retry &&
       !originalRequest.url.includes("/refresh-token") &&
       !originalRequest.url.includes("/logout") &&
       !originalRequest.url.includes("/login") &&
       !originalRequest.url.includes("/register")
     ) {
-      if (isRefreshing) {
+      const isAdminRequest = originalRequest.url.includes("/admin");
+
+      const refreshing = isAdminRequest ? isAdminRefreshing : isUserRefreshing;
+
+      const queue = isAdminRequest ? adminQueue : userQueue;
+
+      if (refreshing) {
         return new Promise((resolve, reject) => {
-          failedQueue.push({
+          queue.push({
             resolve,
             reject,
           });
@@ -69,31 +100,47 @@ api.interceptors.response.use(
       }
 
       originalRequest._retry = true;
-      isRefreshing = true;
+
+      if (isAdminRequest) {
+        isAdminRefreshing = true;
+      } else {
+        isUserRefreshing = true;
+      }
 
       try {
-        const response = await api.post("/api/user/refresh-token");
+        const refreshUrl = isAdminRequest
+          ? "/api/admin/refresh-token"
+          : "/api/user/refresh-token";
+
+        const response = await api.post(refreshUrl);
 
         const newAccessToken = response.data.accessToken;
 
-        const auth = JSON.parse(localStorage.getItem("auth"));
+        const storageKey = isAdminRequest ? "adminAuth" : "auth";
+
+        const auth = JSON.parse(localStorage.getItem(storageKey));
 
         if (auth) {
           auth.token = newAccessToken;
-          localStorage.setItem("auth", JSON.stringify(auth));
+
+          localStorage.setItem(storageKey, JSON.stringify(auth));
         }
 
-        processQueue(null, newAccessToken);
+        processQueue(queue, null, newAccessToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return api(originalRequest);
       } catch (err) {
-        processQueue(err, null);
+        processQueue(queue, err, null);
 
         return Promise.reject(err);
       } finally {
-        isRefreshing = false;
+        if (isAdminRequest) {
+          isAdminRefreshing = false;
+        } else {
+          isUserRefreshing = false;
+        }
       }
     }
 

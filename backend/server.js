@@ -11,6 +11,7 @@ const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const adminAuthRoutes = require("./routes/adminAuthRoutes");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -29,6 +30,7 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
   res.send("Welcome To North & Co.");
 });
+app.use("/api/admin", adminAuthRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);

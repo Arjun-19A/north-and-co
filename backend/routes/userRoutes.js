@@ -30,7 +30,7 @@ router.get("/profile", protect, profile);
 router.post("/refresh-token", tokenRefresh);
 
 // POST /api/user/logout
-router.post("/logout", protect, logout);
+router.post("/logout", logout);
 
 // PUT /api/user/profile
 router.put("/profile", protect, profileUpdate);

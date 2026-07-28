@@ -103,7 +103,7 @@ const login = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
@@ -170,13 +170,21 @@ const tokenRefresh = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    await User.findByIdAndUpdate(req.user._id, {
-      refreshToken: null,
-    });
+    const refreshToken = req.cookies.refreshToken;
+
+    if (refreshToken) {
+      await User.findOneAndUpdate(
+        { refreshToken },
+        {
+          refreshToken: null,
+        },
+      );
+    }
 
     res.clearCookie("refreshToken", {
       httpOnly: true,
       sameSite: "strict",
+      secure: false,
     });
 
     res.status(200).json({

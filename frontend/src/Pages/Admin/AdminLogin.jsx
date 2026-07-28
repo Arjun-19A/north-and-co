@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAdmin, clearAdminError } from "../redux/slices/adminAuthSlice";
+import { loginAdmin, clearError } from "../../redux/slices/adminAuthSlice";
 
 export default function AdminLogin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.adminAuth,
@@ -17,11 +18,14 @@ export default function AdminLogin() {
 
   useEffect(() => {
     return () => {
-      dispatch(clearAdminError());
+      dispatch(clearError());
     };
   }, [dispatch]);
 
   const handleChange = (e) => {
+    if (error) {
+      dispatch(clearError());
+    }
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -31,12 +35,21 @@ export default function AdminLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(loginAdmin(formData));
+    if (loading) return;
+
+    dispatch(
+      loginAdmin({
+        email: formData.email.trim(),
+        password: formData.password,
+      }),
+    );
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/admin" replace />;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/admin", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <section className="min-h-screen bg-stone-100 flex items-center justify-center px-6">
@@ -62,8 +75,11 @@ export default function AdminLogin() {
             <input
               type="email"
               name="email"
+              autoComplete="email"
+              autoFocus
               value={formData.email}
               onChange={handleChange}
+              disabled={loading}
               required
               className="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black transition"
             />
@@ -79,6 +95,7 @@ export default function AdminLogin() {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              disabled={loading}
               required
               className="w-full border border-gray-300 px-4 py-3 outline-none focus:border-black transition"
             />

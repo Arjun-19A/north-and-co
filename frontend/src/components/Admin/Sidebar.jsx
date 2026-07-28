@@ -4,7 +4,6 @@ import {
   HiOutlineShoppingBag,
   HiOutlineCube,
   HiOutlineUsers,
-  HiOutlineCog6Tooth,
 } from "react-icons/hi2";
 
 const menuItems = [
@@ -32,7 +31,7 @@ const menuItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 shrink-0 border-r border-gray-300 bg-stone-100 flex flex-col">
+    <aside className="w-auto shrink-0 bg-stone-100 flex flex-col">
       <div className="px-8 pt-10 pb-8 border-b border-gray-300">
         <h1 className="text-3xl font-semibold tracking-tight select-none">
           North <span className="font-light">& Co.</span>

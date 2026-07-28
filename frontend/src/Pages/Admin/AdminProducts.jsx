@@ -80,7 +80,7 @@ export default function AdminProducts() {
               <tr className="text-left text-[11px] uppercase tracking-[0.18em] text-black/45">
                 <th className="px-6 py-4">Image</th>
                 <th>Product</th>
-                <th>Product ID</th>
+                <th>SKU</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
@@ -99,7 +99,7 @@ export default function AdminProducts() {
                     <img
                       src={product.images?.[0]?.url}
                       alt={product.name}
-                      className="w-16 h-16 object-cover border"
+                      className="w-16 h-16 object-cover border border-gray-300"
                     />
                   </td>
                   <td>

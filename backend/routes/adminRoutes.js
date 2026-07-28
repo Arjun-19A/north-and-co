@@ -14,9 +14,18 @@ const {
   getOrderDetails,
   updateOrderStatus,
 } = require("../controller/admin/order");
-const { getCustomers, getCustomerDetails } = require("../controller/admin/customer");
+const {
+  getCustomers,
+  getCustomerDetails,
+} = require("../controller/admin/customer");
 
-// router.use(protect, admin);
+const { uploadImages } = require("../controller/admin/upload");
+
+const upload = require("../middleware/upload");
+
+router.use(protect, admin);
+
+router.post("/upload", upload.array("images", 5), uploadImages);
 
 router.get("/dashboard", getDashboard);
 

@@ -24,7 +24,10 @@ import AdminLayout from "./components/layouts/AdminLayout";
 import Dashboard from "./components/Admin/Dashboard";
 import AdminProducts from "./Pages/Admin/AdminProducts";
 import AdminOrders from "./Pages/Admin/AdminOrders";
-import AdminCustomers from "./Pages/Admin/AdminCutomer";
+import AdminCustomers from "./Pages/Admin/AdminCutomers";
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
+import AdminPublicRoute from "./components/Admin/AdminPublicRoute";
+import AdminLogin from "./Pages/Admin/AdminLogin";
 
 const App = () => {
   return (
@@ -50,11 +53,16 @@ const App = () => {
           </Route>
         </Route>
 
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="customers" element={<AdminCustomers />} />
+        <Route element={<AdminPublicRoute />}>
+          <Route path="/admin/login" element={<AdminLogin />} />
+        </Route>
+        <Route element={<AdminProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="customers" element={<AdminCustomers />} />
+          </Route>
         </Route>
 
         <Route element={<CheckoutLayout />}>
