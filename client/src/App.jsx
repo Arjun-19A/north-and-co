@@ -1,33 +1,33 @@
 import { Route, Routes } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import NotFound from "./Pages/NotFound";
-import About from "./Pages/About";
-import Collections from "./Pages/Collections";
-import Cart from "./Pages/Cart";
-import Shop from "./Pages/Shop";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
+import About from "./pages/About";
+import Collections from "./pages/Collections";
+import Cart from "./pages/Cart";
+import Shop from "./pages/Shop";
 import ProductDetails from "./components/ProductDetails";
-import Account from "./Pages/Account";
+import Account from "./pages/Account";
 import Profile from "./components/Accounts/Profile";
 import Orders from "./components/Accounts/Orders";
 import Addresses from "./components/Accounts/Addresses";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Checkout from "./Pages/Checkout";
+import Checkout from "./pages/Checkout";
 import CheckoutLayout from "./layouts/CheckoutLayout";
-import OrderDetails from "./Pages/OrderDetails";
-import OrderSuccess from "./Pages/OrderSuccess";
+import OrderDetails from "./pages/OrderDetails";
+import OrderSuccess from "./pages/OrderSuccess";
 import ScrollToTop from "./components/ScrollToTop";
 import AdminLayout from "./layouts/AdminLayout";
 import Dashboard from "./components/Admin/Dashboard";
-import AdminProducts from "./Pages/Admin/AdminProducts";
-import AdminOrders from "./Pages/Admin/AdminOrders";
-import AdminCustomers from "./Pages/Admin/AdminCutomers";
+import AdminProducts from "./pages/Admin/AdminProducts";
+import AdminOrders from "./pages/Admin/AdminOrders";
+import AdminCustomers from "./pages/Admin/AdminCutomers";
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 import AdminPublicRoute from "./components/Admin/AdminPublicRoute";
-import AdminLogin from "./Pages/Admin/AdminLogin";
+import AdminLogin from "./pages/Admin/AdminLogin";
 
 const App = () => {
   return (
