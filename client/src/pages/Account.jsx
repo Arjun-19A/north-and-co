@@ -14,7 +14,7 @@ const Account = () => {
       await dispatch(logoutUser()).unwrap();
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

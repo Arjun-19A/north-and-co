@@ -127,7 +127,7 @@ const Checkout = () => {
             ).unwrap();
             navigate(`/order-success/${verifiedOrder.orderId}`);
           } catch (err) {
-            console.log(err);
+            console.error(err);
             alert("Payment verification failed");
           }
         },
@@ -136,7 +136,6 @@ const Checkout = () => {
           ondismiss: async function () {
             setPaymentError(true);
             await dispatch(markPaymentFailed(order._id)).unwrap();
-            console.log("Payment popup closed");
           },
         },
 
@@ -155,13 +154,11 @@ const Checkout = () => {
         setPaymentError(true);
 
         await dispatch(markPaymentFailed(order._id)).unwrap();
-
-        console.log("Payment failed");
       });
 
       razorpay.open();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

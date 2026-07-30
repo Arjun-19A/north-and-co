@@ -82,7 +82,7 @@ const createPaymentOrder = async (req, res) => {
       razorpayOrder,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       message: "Unable to create Razorpay order",
@@ -124,7 +124,7 @@ const verifyPayment = async (req, res) => {
       order,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       message: error.message || "Payment verification failed",
     });
@@ -154,7 +154,7 @@ const paymentFailed = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       message: "Server Error",
@@ -204,7 +204,7 @@ const razorpayWebhook = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       message: "Webhook failed",
     });

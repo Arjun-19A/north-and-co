@@ -83,6 +83,7 @@ Create a `.env` file inside the **server** folder.
 
 ```env
 PORT=5000
+CLIENT_URL=http://localhost:5173
 
 MONGO_URI=your_mongodb_connection_string
 

@@ -15,7 +15,7 @@ const uploadImages = async (req, res) => {
       images,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       message: "Image upload failed",

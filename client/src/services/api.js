@@ -39,7 +39,7 @@ api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${token}`;
     }
   } catch (error) {
-    console.log("Auth parse error");
+    console.error(error);
   }
 
   return config;

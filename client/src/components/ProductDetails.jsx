@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import {
   fetchProductDetails,
@@ -12,6 +12,7 @@ import { addToCart } from "../redux/slices/cartSlice";
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { selectedProduct, similarProducts, loading, error } = useSelector(
     (state) => state.products,
@@ -67,6 +68,32 @@ const ProductDetails = () => {
     setTimeout(() => {
       setAdded(false);
     }, 2000);
+  };
+
+  const handleBuyNow = async () => {
+    if (selectedProduct.countInStock === 0) {
+      alert("This product is currently out of stock");
+      return;
+    }
+    if (quantity > selectedProduct.countInStock) {
+      alert(`Only ${selectedProduct.countInStock} items are available`);
+      return;
+    }
+    try {
+      await dispatch(
+        addToCart({
+          productId: selectedProduct._id,
+          quantity,
+          size: activeSize,
+          color: activeColor,
+          guestId,
+        }),
+      ).unwrap();
+
+      navigate("/checkout");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (loading.productDetails)
@@ -269,7 +296,10 @@ ${activeColor === color ? "border-black" : "border-white"}`}
           {selectedProduct.countInStock === 0 ? (
             ""
           ) : (
-            <button className="w-full mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent">
+            <button
+              onClick={handleBuyNow}
+              className="w-full mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent"
+            >
               Buy Now
             </button>
           )}
