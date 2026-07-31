@@ -40,6 +40,17 @@ The goal of this project was to understand how large-scale e-commerce applicatio
 
 🔗 https://north-and-co.vercel.app/admin
 
+## 🧪 Demo Credentials
+
+After running the seed command (`npm run seed`), you can log in using the following demo accounts.
+
+| Role        | Email                  | Password |
+| ----------- | ---------------------- | -------- |
+| 👨‍💼 Admin    | `admin@example.com`    | `123456` |
+| 👤 Customer | `customer@example.com` | `123456` |
+
+> **Note:** Running `npm run seed` populates the database with sample products and creates these demo accounts.
+
 ---
 
 ## ✨ Key Features
@@ -161,20 +172,6 @@ http://localhost:5173
 ```text
 http://localhost:5173/admin
 ```
-
-
----
-
-## 🧪 Demo Credentials
-
-After running the seed command (`npm run seed`), you can log in using the following demo accounts.
-
-| Role        | Email                  | Password |
-| ----------- | ---------------------- | -------- |
-| 👨‍💼 Admin    | `admin@example.com`    | `123456` |
-| 👤 Customer | `customer@example.com` | `123456` |
-
-> **Note:** Running `npm run seed` populates the database with sample products and creates these demo accounts.
 
 ---
 
