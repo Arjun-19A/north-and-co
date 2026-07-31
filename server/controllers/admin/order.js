@@ -57,15 +57,16 @@ const updateOrderStatus = async (req, res) => {
 
     order.orderStatus = orderStatus;
 
-    if (order.paymentMethod === "COD" && orderStatus === "Delivered") {
-      order.paymentStatus = "Paid";
-      order.isPaid = true;
-      order.paidAt = new Date();
-    }
-
-    if (order.paymentMethod === "COD" && orderStatus === "Cancelled") {
-      order.paymentStatus = "Cancelled";
-      order.isPaid = false;
+    if (order.paymentMethod === "COD") {
+      if (orderStatus === "Delivered") {
+        order.paymentStatus = "Paid";
+        order.isPaid = true;
+        order.paidAt = new Date();
+      } else {
+        order.paymentStatus = "Pending";
+        order.isPaid = false;
+        order.paidAt = null;
+      }
     }
 
     await order.save();
