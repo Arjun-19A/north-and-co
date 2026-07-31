@@ -906,7 +906,7 @@ const products = [
 
     sizes: ["XS", "S", "M", "L", "XL"],
 
-    colors: ["White", "Sand Beige", "Olive Green", "Light Blue"],
+    colors: ["Light purple", "Pink"],
 
     collectionName: "Summer Essentials",
 
@@ -1017,7 +1017,7 @@ const products = [
 
     sizes: ["26", "28", "30", "32", "34"],
 
-    colors: [" Dark Blue Denim", "Light Blue Denim", "Dark Brown"],
+    colors: ["Dark Blue Denim", "Light Blue Denim", "Dark Brown"],
 
     collectionName: "Denim Essentials",
 
@@ -1241,7 +1241,7 @@ const products = [
 
     sizes: ["XS", "S", "M", "L", "XL"],
 
-    colors: ["Light turquoise", "Light Biege"],
+    colors: ["Light turquoise", "Light Beige"],
 
     collectionName: "Linen Essentials",
 
@@ -1296,7 +1296,7 @@ const products = [
 
     sizes: ["XS", "S", "M", "L", "XL"],
 
-    colors: ["Denim blue", "Dark denim grey"],
+    colors: ["Denim Blue", "Dark denim grey"],
 
     collectionName: "Denim Essentials",
 
@@ -1351,7 +1351,7 @@ const products = [
 
     sizes: ["XS", "S", "M", "L", "XL"],
 
-    colors: ["Light beige"],
+    colors: ["Light Beige"],
 
     collectionName: "Winter Essentials",
 
@@ -1554,7 +1554,7 @@ const products = [
 
     sizes: ["M", "L", "XL"],
 
-    colors: ["Pink", "Cream"],
+    colors: ["Orange", "White"],
 
     collectionName: "Summer Essentials",
 
@@ -1905,5 +1905,6 @@ const products = [
     numReviews: 18,
   },
 ];
+
 
 module.exports = products;

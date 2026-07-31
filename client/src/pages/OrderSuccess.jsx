@@ -24,7 +24,7 @@ const OrderSuccess = () => {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-10 justify-center">
+        <div className="flex flex-col sm:flex-row gap-10 justify-center items-center">
           <Link
             to="/shop"
             className="text-xs uppercase tracking-[0.2em] font-light hover:opacity-80 transition-opacity text-[12px] border-b border-black/60 pb-0.5"

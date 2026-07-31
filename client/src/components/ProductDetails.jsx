@@ -8,6 +8,7 @@ import {
 } from "../redux/slices/productsSlice";
 import ProductCard from "./Home/ProductCard";
 import { addToCart } from "../redux/slices/cartSlice";
+import { colorMap } from "../constants/colorMap";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -215,7 +216,7 @@ const ProductDetails = () => {
                   className={`h-9 w-9 rounded-full border transition
 ${activeColor === color ? "border-black" : "border-white"}`}
                   style={{
-                    backgroundColor: color.toLowerCase(),
+                    background: colorMap[color.trim()] || "#e5e7eb",
                   }}
                 />
               ))}

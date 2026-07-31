@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsFillPersonFill, BsFillLockFill } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { clearError, loginUser, registerUser } from "../redux/slices/authSlice";
@@ -14,6 +14,8 @@ const AuthPage = ({ type }) => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     dispatch(clearError());
@@ -43,7 +45,7 @@ const AuthPage = ({ type }) => {
         ).unwrap();
       }
 
-      navigate("/");
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       console.error(err);
     }
@@ -163,6 +165,7 @@ const AuthPage = ({ type }) => {
                   <Link
                     className="text-black font-semibold hover:underline"
                     to="/register"
+                    state={{ from: location.state?.from }}
                   >
                     Sign Up
                   </Link>
@@ -172,7 +175,8 @@ const AuthPage = ({ type }) => {
                   Already have an account?{" "}
                   <Link
                     className="text-black font-semibold hover:underline"
-                    to="/login"
+                      to="/login"
+                      state={{ from: location.state?.from }}
                   >
                     Sign In
                   </Link>

@@ -1,10 +1,9 @@
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const slugify = require("slugify");
 
 const Product = require("./models/Product");
-const User = require("./models/User");
 const Cart = require("./models/Cart");
+const User = require("./models/User");
 
 const products = require("./data/products");
 const connectToDB = require("./config/db");
