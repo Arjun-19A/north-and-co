@@ -67,10 +67,10 @@ const Shop = () => {
 
   return (
     <section className="pt-10 min-h-screen bg-stone-100">
-      <div className="max-w-350 mx-auto px-6 py-10 md:px-8 lg:px-10 pt-15 border-b border-gray-300">
+      <div className="max-w-350 mx-auto px-5 py-10 md:px-8 lg:px-10 pt-15 border-b border-gray-300">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="block text-[11px] tracking-[0.22em] uppercase font-light mb-3">
+            <span className="block text-[11px] tracking-[0.22em] uppercase font-light">
               {collection ? "Featured Collection" : "All Products"}
             </span>
 
@@ -101,8 +101,8 @@ const Shop = () => {
         </div>
       </div>
 
-      <div className="max-w-350 mx-auto px-8">
-        <div className="flex gap-12 py-12">
+      <div className="max-w-350 mx-auto px-4 md:px-8">
+        <div className="flex gap-12 py-4">
           <aside className="hidden md:block shrink-0 w-44">
             <div className="sticky top-25">
               <h2 className="text-[11px] tracking-[0.22em] uppercase font-light text-[#6b6b6b] mb-6">
@@ -160,47 +160,6 @@ const Shop = () => {
                 )}
 
                 {totalPages > 1 && (
-                  // <div className="flex justify-center items-center gap-2 mt-12">
-                  //   <button
-                  //     disabled={currentPage === 1}
-                  //     onClick={() => {
-                  //       searchParams.set("page", currentPage - 1);
-                  //       setSearchParams(searchParams);
-                  //     }}
-                  //     className="px-4 py-2 border disabled:opacity-40"
-                  //   >
-                  //     Prev
-                  //   </button>
-
-                  //   {[...Array(totalPages)].map((_, index) => (
-                  //     <button
-                  //       key={index}
-                  //       onClick={() => {
-                  //         searchParams.set("page", index + 1);
-                  //         setSearchParams(searchParams);
-                  //       }}
-                  //       className={`w-10 h-10 border transition ${
-                  //         currentPage === index + 1
-                  //           ? "bg-black text-white"
-                  //           : "hover:bg-gray-100"
-                  //       }`}
-                  //     >
-                  //       {index + 1}
-                  //     </button>
-                  //   ))}
-
-                  //   <button
-                  //     disabled={currentPage === totalPages}
-                  //     onClick={() => {
-                  //       searchParams.set("page", currentPage + 1);
-                  //       setSearchParams(searchParams);
-                  //     }}
-                  //     className="px-4 py-2 border disabled:opacity-40"
-                  //   >
-                  //     Next
-                  //   </button>
-                  // </div>
-
                   <div className="flex justify-center items-center gap-2 mt-12">
                     <button
                       disabled={currentPage === 1}

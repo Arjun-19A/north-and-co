@@ -44,13 +44,15 @@ const AuthPage = ({ type }) => {
       }
 
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <>
       <Link
         to="/"
-        className="absolute top-5 text-3xl left-5 text-white md:text-5xl font-bold tracking-tight whitespace-nowrap"
+        className="absolute top-5 text-3xl left-5 text-black md:text-white md:text-5xl font-bold tracking-tight whitespace-nowrap"
       >
         North <span className="font-light">& Co.</span>
       </Link>

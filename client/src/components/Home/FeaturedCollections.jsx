@@ -3,10 +3,10 @@ import Collections from "./Collections";
 const FeaturedCollections = ({ products, loading, error }) => {
   return (
     <section className="w-full bg-stone-100">
-      <div className="py-14 md:py-22 max-w-360 mx-auto px-8">
+      <div className="py-14 md:py-22 max-w-360 mx-auto px-4 md:px-8">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <span className="block text-[11px] tracking-[0.22em] text-secondary uppercase font-light mb-2">
+            <span className="block text-[11px] tracking-[0.22em] text-secondary uppercase font-light mb-1 md:mb-2">
               Explore
             </span>
             <h2 className="text-[clamp(28px,3vw,40px)] font-light text-[#111111] tracking-[-0.01em] leading-tight">
@@ -15,7 +15,7 @@ const FeaturedCollections = ({ products, loading, error }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 gap-y-4 md:gap-4">
           {loading && <p>Loading...</p>}
 
           {error && <p className="text-red-500">{error}</p>}

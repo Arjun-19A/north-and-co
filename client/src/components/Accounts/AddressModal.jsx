@@ -50,9 +50,9 @@ const AddressModal = ({ open, onClose, onSubmit, initialData }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm flex items-center justify-center p-6">
-      <div className="w-full max-w-2xl bg-stone-100 border border-gray-200 shadow-2xl max-h-[92vh] overflow-y-auto">
-        <div className="flex items-start justify-between border-b border-gray-200 px-8 py-5">
+    <div className="fixed inset-0 z-50 bg-black/45 backdrop-blur-sm flex items-center justify-center p-5">
+      <div className="w-full max-w-2xl bg-stone-100 border border-gray-200 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-start justify-between border-b border-gray-200 px-4 md:px-8 py-5">
           <div>
             <p className="text-[11px] uppercase tracking-[0.25em] text-black/45">
               Shipping Address
@@ -71,8 +71,8 @@ const AddressModal = ({ open, onClose, onSubmit, initialData }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="px-8 py-5 space-y-6">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <div className="px-4 md:px-8 py-5 space-y-6">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="flex flex-col gap-1">
                 <label className="text-[11px] uppercase tracking-[0.16em] text-black/60">
@@ -235,20 +235,20 @@ const AddressModal = ({ open, onClose, onSubmit, initialData }) => {
             </label>
           </div>
 
-          <div className="border-t border-gray-200 px-8 py-5 flex justify-end gap-4">
+          <div className="border-t border-gray-200 px-4 md:px-8 py-5 flex justify-end gap-4">
             <button
               type="button"
               onClick={onClose}
-              className="border border-gray-300 px-8 py-3 text-xs uppercase tracking-[0.18em] hover:border-black transition"
+              className="border border-gray-300 px-5 md:px-8 py-3 text-xs uppercase tracking-[0.18em] hover:border-black transition"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="bg-black text-white px-10 py-3 text-xs uppercase tracking-[0.2em] hover:opacity-80 transition"
+              className="bg-black text-white px-7 md:px-10 py-3 text-xs uppercase tracking-[0.2em] hover:opacity-80 transition"
             >
-              {initialData ? "Update Address" : "Save Address"}
+              {initialData ? "Update" : "Save"}
             </button>
           </div>
         </form>

@@ -9,9 +9,9 @@ const CartProducts = ({
       {products.map((product) => (
         <div
           key={product._id}
-          className="flex gap-6 p-4 border-gray-200 border"
+          className="flex gap-2 sm:gap-4 md:gap-6 p-3 sm:p-4 border border-gray-200"
         >
-          <div className="overflow-hidden relative shrink-0 w-24 h-32">
+          <div className="relative shrink-0 overflow-hidden w-20 h-28 sm:w-24 sm:h-32 md:w-28 md:h-36">
             <img
               src={product.image}
               alt={product.name}
@@ -19,14 +19,17 @@ const CartProducts = ({
             />
           </div>
 
-          <div className="flex flex-1 flex-col gap-2">
-            <h2 className="text-[15px] text-[#111] font-light tracking-[0.01em] hover:opacity-60 transition-opacity">
+          <div className="flex flex-1 flex-col gap-1">
+            <h2 className="text-sm sm:text-[15px] md:text-base font-light tracking-[0.01em] hover:opacity-60 transition-opacity">
               {product.name}
             </h2>
-            <p className="text-[15px] text-[#6b6b6b] font-light">
+            <p className="text-sm md:text-[15px] text-[#6b6b6b] font-light">
               Size: {product.size || "-"}
             </p>
-            <p className="text-[#6b6b6b] text-[15px] font-light">
+            <p className="text-sm md:text-[15px] text-[#6b6b6b] font-light">
+              Color: {product.color || "-"}
+            </p>
+            <p className="text-sm md:text-[15px] text-[#6b6b6b] font-light">
               Price: ₹{product.price}
             </p>
 

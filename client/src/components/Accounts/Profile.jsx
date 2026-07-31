@@ -66,13 +66,13 @@ const Profile = () => {
 
         <button
           onClick={() => setEditing(!editing)}
-          className={`px-4 py-2 ${editing ? "hidden" : ""} border border-gray-300 text-sm hover:border-black transition-colors cursor-pointer`}
+          className={`px-3 py-2 ${editing ? "hidden" : ""} border border-gray-300 text-sm hover:border-black transition-colors cursor-pointer`}
         >
           Edit Profile
         </button>
       </div>
 
-      <div className="bg-linear-to-br from-black to-gray-700 p-8 text-white relative overflow-hidden flex flex-col md:flex-row gap-6">
+      <div className="bg-linear-to-br from-black to-gray-700 p-5 md:p-8 text-white relative overflow-hidden flex flex-col md:flex-row gap-6">
         <div className="flex-1 flex flex-col gap-1 md:text-left">
           <p className="text-white/60 text-sm uppercase tracking-[0.15em]">
             Welcome back
@@ -94,7 +94,7 @@ const Profile = () => {
 
       <form
         onSubmit={handleSubmit}
-        className=" border border-black/10 p-6 sm:p-8 flex flex-col gap-6"
+        className=" border border-black/10 p-5 sm:p-8 flex flex-col gap-6"
       >
         <div className="grid sm:grid-cols-2 gap-6">
           <div>

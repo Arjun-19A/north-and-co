@@ -35,14 +35,14 @@ const Account = () => {
 
   return (
     <section className="pt-15 min-h-screen bg-stone-100">
-      <div className="max-w-350 mx-auto px-6 py-15 md:px-8">
+      <div className="max-w-350 mx-auto px-3 py-15 md:px-8">
         <h1 className="text-[clamp(28px,3vw,40px)] font-light tracking-[-0.01em]">
           My Account
         </h1>
 
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 pt-10 border-t border-gray-300">
           <aside className="w-full md:w-70 shrink-0">
-            <nav className="flex flex-col gap-5 md:gap-3 px-4 rounded-lg">
+            <nav className="flex flex-col gap-5 md:gap-3 px-2 md:px-4 rounded-lg">
               {menu.map((item) => (
                 <NavLink
                   key={item.path}
@@ -77,8 +77,6 @@ const Account = () => {
           </div>
         </div>
       </div>
-
-      <div className="max-w-350 mx-auto px-8"></div>
     </section>
   );
 };

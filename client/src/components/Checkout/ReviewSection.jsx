@@ -27,7 +27,7 @@ const ReviewSection = ({
         </div>
 
         <div className="flex-1">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-5 md:gap-8">
             <h2 className="text-[20px] font-light tracking-[-0.01em]">
               Review Order
             </h2>

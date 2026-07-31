@@ -52,7 +52,7 @@ const PaymentSection = ({
             <div className="mt-6 space-y-4">
               {/* Razorpay */}
               <label
-                className={`block border p-6 cursor-pointer transition ${
+                className={`block border p-3 md:p-6 cursor-pointer transition ${
                   paymentMethod === "Razorpay"
                     ? "border-black bg-black/[0.02]"
                     : "border-gray-300 hover:border-black/40"
@@ -100,9 +100,8 @@ const PaymentSection = ({
                 </div>
               </label>
 
-              {/* COD */}
               <label
-                className={`block border p-6 cursor-pointer transition ${
+                className={`block border p-3 md:p-6 cursor-pointer transition ${
                   paymentMethod === "COD"
                     ? "border-black bg-black/[0.02]"
                     : "border-gray-300 hover:border-black/40"

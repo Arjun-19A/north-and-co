@@ -63,7 +63,7 @@ const Cart = () => {
 
   return (
     <section className="pt-10 md:pt-14 min-h-screen bg-stone-100">
-      <div className="max-w-355 mx-auto px-5 md:px-8 lg:px-10 py-20">
+      <div className="max-w-355 mx-auto px-4 md:px-8 lg:px-10 py-15">
         <CartHeading products={products} />
 
         {!loading && products.length === 0 ? (

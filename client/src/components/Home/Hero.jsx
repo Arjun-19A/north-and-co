@@ -24,6 +24,8 @@ const Hero = () => {
             <img
               src={image}
               alt={`Slide ${index + 1}`}
+              loading="eager"
+              fetchPriority="high"
               className="absolute inset-0 shrink-0 h-full w-full object-cover object-top"
             />
           </div>

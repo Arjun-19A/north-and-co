@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 const ProductsGrid = ({ id, name, image, price }) => {
   return (
     <Link to={`/products/${id}`} className="group">
-      <div className="overflow-hidden aspect-5/6 relative shadow-sm group-hover:shadow-xl transition-all duration-300">
+      <div className="overflow-hidden aspect-2/3 md:aspect-4/5 relative shadow-sm group-hover:shadow-xl transition-all duration-300">
         <img
           className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
           src={image}
           alt={name}
         />

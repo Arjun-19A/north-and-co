@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import NewArrivals from "../components/Home/NewArrivals";
 import BestSellers from "../components/Home/BestSellers";
-import ScrollReveal from "../components/ScrollReveal";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,41 +42,29 @@ const Home = () => {
     <main className="w-full bg-stone-100">
       <Hero />
 
-      <ScrollReveal>
-        <NewArrivals
-          products={newArrivals}
-          loading={loading.newArrivals}
-          error={error.newArrivals}
-        />
-      </ScrollReveal>
+      <NewArrivals
+        products={newArrivals}
+        loading={loading.newArrivals}
+        error={error.newArrivals}
+      />
 
-      <ScrollReveal>
-        <Editorial />
-      </ScrollReveal>
+      <Editorial />
 
-      <ScrollReveal>
-        <FeaturedCollections
-          products={featuredProducts}
-          loading={loading.featured}
-          error={error.featured}
-        />
-      </ScrollReveal>
+      <FeaturedCollections
+        products={featuredProducts}
+        loading={loading.featured}
+        error={error.featured}
+      />
 
-      <ScrollReveal>
-        <WhySection />
-      </ScrollReveal>
+      <WhySection />
 
-      <ScrollReveal>
-        <BestSellers
-          products={bestSellerProducts}
-          loading={loading.bestSeller}
-          error={error.bestSeller}
-        />
-      </ScrollReveal>
+      <BestSellers
+        products={bestSellerProducts}
+        loading={loading.bestSeller}
+        error={error.bestSeller}
+      />
 
-      <ScrollReveal>
-        <Newsletter />
-      </ScrollReveal>
+      <Newsletter />
     </main>
   );
 };

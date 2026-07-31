@@ -86,10 +86,10 @@ const ShippingSection = ({
           </div>
 
           {isOpen && (
-            <div className="mt-6">
+            <div className="mt-5">
               {savedAddresses.length > 0 && (
-                <div className="flex gap-8 pb-6">
-                  <label className="flex items-center gap-3 cursor-pointer">
+                <div className="flex gap-2 md:gap-8 pb-6">
+                  <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
                       checked={addressMode === "saved"}
@@ -102,7 +102,7 @@ const ShippingSection = ({
                     </span>
                   </label>
 
-                  <label className="flex items-center gap-3 cursor-pointer">
+                  <label className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
                       checked={addressMode === "new"}
@@ -111,7 +111,7 @@ const ShippingSection = ({
                     />
 
                     <span className="text-sm tracking-wide">
-                      Deliver to Another Address
+                      Deliver to New Address
                     </span>
                   </label>
                 </div>
@@ -124,7 +124,7 @@ const ShippingSection = ({
                       key={address._id}
                       className={`
           block
-          p-5
+          p-3
           cursor-pointer
           transition bg-transparent border border-gray-300
           ${

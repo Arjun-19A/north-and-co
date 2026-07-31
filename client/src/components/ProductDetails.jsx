@@ -108,15 +108,15 @@ const ProductDetails = () => {
     return <div className="text-center py-20">Product not found</div>;
 
   return (
-    <div className="max-w-360 mx-auto px-8 py-14 md:py-16">
-      <div className="mt-10 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-4 sm:gap-8 lg:gap-20">
+    <div className="max-w-360 mx-auto px-5 md:px-8 py-14 md:py-16">
+      <div className="mt-5 md:mt-10 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-4 sm:gap-8 lg:gap-20">
         <div>
           <div className="flex flex-col-reverse md:flex-row gap-4">
             <div className="flex flex-row md:flex-col gap-2 shrink-0">
               {selectedProduct.images?.map((image, index) => (
                 <button
                   key={index}
-                  className={`relative w-16 h-20 md:w-20 md:h-24 overflow-hidden bg-stone-100 transition-opacity duration-200 opacity-40 ${
+                  className={`relative w-18 h-20 md:w-20 md:h-24 overflow-hidden bg-stone-100 transition-opacity duration-200 opacity-40 ${
                     selectedImage === index
                       ? "opacity-100"
                       : "hover:opacity-70 "
@@ -133,8 +133,9 @@ const ProductDetails = () => {
                 </button>
               ))}
             </div>
-            <div className="relative aspect-4/5 bg-stone-100">
+            <div className="relative aspect-5/6 bg-stone-100">
               <img
+                loading="lazy"
                 src={mainImage}
                 alt={selectedProduct.name}
                 className="w-full h-full object-contain"
@@ -142,7 +143,7 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1 md:gap-2">
           <h1 className="text-3xl md:text-4xl font-light tracking-wide mt-4 leading-tight">
             {selectedProduct.name}
           </h1>
@@ -229,11 +230,15 @@ ${activeColor === color ? "border-black" : "border-white"}`}
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`h-11 w-11 border text-sm transition ${
-                    activeSize === size
-                      ? "bg-black text-white border-black"
-                      : "border-gray-300 hover:border-black"
-                  }`}
+                  className={`
+          h-10
+          px-4
+          border
+          text-sm
+          whitespace-nowrap
+          transition
+          ${activeSize === size ? "bg-black text-white" : "hover:bg-black/5"}
+        `}
                 >
                   {size}
                 </button>
@@ -298,7 +303,7 @@ ${activeColor === color ? "border-black" : "border-white"}`}
           ) : (
             <button
               onClick={handleBuyNow}
-              className="w-full mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent"
+              className="w-full mt-2 md:mt-3 h-12 text-[12px] tracking-[0.14em] uppercase font-light text-primary border border-gray-300 hover:border-black transition-colors duration-200 bg-transparent"
             >
               Buy Now
             </button>
@@ -306,25 +311,29 @@ ${activeColor === color ? "border-black" : "border-white"}`}
         </div>
       </div>
 
-      <div className="flex flex-col justify-between mb-10 mt-28">
-        <p className="uppercase tracking-[0.18em] text-xs text-black/40 mb-2">
-          Recommended
-        </p>
+      {similarProducts.length > 0 && (
+        <>
+          <div className="flex flex-col justify-between mb-10 mt-20 md:mt-28">
+            <p className="uppercase tracking-[0.18em] text-xs text-black/40 mb-2">
+              Recommended
+            </p>
 
-        <h2 className="text-4xl font-light">You May Also Like</h2>
-      </div>
+            <h2 className="text-4xl font-light">You May Also Like</h2>
+          </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {similarProducts.map((item) => (
-          <ProductCard
-            key={item._id}
-            id={item._id}
-            image={item.images[0].url}
-            name={item.name}
-            price={item.price}
-          />
-        ))}
-      </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 gap-y-6">
+            {similarProducts.map((item) => (
+              <ProductCard
+                key={item._id}
+                id={item._id}
+                image={item.images[0].url}
+                name={item.name}
+                price={item.price}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

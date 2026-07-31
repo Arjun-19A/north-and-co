@@ -3,9 +3,9 @@ import BestSellerProduct from "./BestSellerProduct";
 const BestSellers = ({ products, loading, error }) => {
   return (
     <section className="bg-stone-100 w-full overflow-hidden">
-      <div className="py-12 md:py-16 max-w-360 mx-auto px-8">
-        <div className="mb-10">
-          <span className="block text-[11px] tracking-[0.22em] uppercase font-light mb-2">
+      <div className="py-12 md:py-16 max-w-screen">
+        <div className="mb-10 px-5 md:px-20">
+          <span className="block text-[11px] tracking-[0.22em] uppercase font-light mb-1 md:mb-2">
             Top Picks
           </span>
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const OrderSummary = ({ subtotal, hasStockIssue, total }) => {
   return (
-    <div className="sticky top-50 p-8 border border-gray-200 h-fit">
+    <div className="sticky top-50 p-5 md:p-8 border border-gray-200 h-fit">
       <h2 className="font-extralight uppercase tracking-widest mb-6 text-black">
         Order Summary
       </h2>

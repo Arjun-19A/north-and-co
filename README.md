@@ -22,11 +22,23 @@ A modern full-stack MERN e-commerce platform focused on performance, scalability
 
 ## 📖 About
 
-**North & Co.** is a full-stack MERN e-commerce platform that delivers a complete online shopping experience with secure authentication, product management, Razorpay payments, and a dedicated admin dashboard.
+**North & Co.** is a full-stack MERN e-commerce platform that delivers a complete online shopping experience with secure authentication, product management, Razorpay payments, and a integrated admin dashboard.
 
 It is built using React, Redux Toolkit, Express.js, MongoDB, JWT Authentication, Cloudinary, and Razorpay while following scalable and production-style development practices.
 
 The goal of this project was to understand how large-scale e-commerce applications are structured while following clean architecture and scalable development practices.
+
+---
+
+## 🌐 Live Application
+
+### Customer Website
+
+🔗 https://north-and-co.vercel.app/
+
+### Admin Panel
+
+🔗 https://north-and-co.vercel.app/admin
 
 ---
 
@@ -115,7 +127,7 @@ npm run start
 
 ---
 
-### Frontend Setup
+### Frontend Setup (Customer + Admin Panel)
 
 Install dependencies
 
@@ -130,11 +142,26 @@ Create a `.env` file inside the **client** folder.
 VITE_BACKEND_URL=http://localhost:5000
 ```
 
-Start the frontend
+Start the application
 
 ```bash
 npm run dev
 ```
+
+The application will run at:
+
+### Customer Website
+
+```text
+http://localhost:5173
+```
+
+### Admin Dashboard
+
+```text
+http://localhost:5173/admin
+```
+
 
 ---
 
@@ -178,6 +205,7 @@ Supports both **Cash on Delivery (COD)** and **Razorpay Online Payments** with p
 - Webhook Support for Payment Confirmation
 
 ---
+
 ## 🚀 Future Enhancements
 
 - Wishlist
@@ -188,3 +216,4 @@ Supports both **Cash on Delivery (COD)** and **Razorpay Online Payments** with p
 ---
 
 ⭐ If you found this project interesting, consider giving it a star!
+```

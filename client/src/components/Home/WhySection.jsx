@@ -37,7 +37,7 @@ const WhySection = () => {
     },
   ];
   return (
-    <section className="flex flex-col bg-stone-100 items-center w-full px-6 border-y border-gray-200 py-8">
+    <section className="flex flex-col bg-stone-100 items-center w-full px-6 border-y border-gray-200 py-5 md:px-8">
       <div className="text-center">
         <h2 className="text-4xl md:text-5xl tracking-tight font-light text-center mx-auto">
           Designed Around Quality.
@@ -47,10 +47,10 @@ const WhySection = () => {
           the experience we deliver.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mt-10 w-full max-w-330">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mt-5 md:mt-10 w-full max-w-330">
         {featuresData.map((feature, index) => (
           <div key={index} className="h-full">
-            <div className="h-full p-8 flex flex-col transition-all duration-300 gap-2">
+            <div className="h-full p-5 md:p-8 flex flex-col transition-all duration-300 gap-2">
               {feature.icon}
               <h3 className="text-base font-medium text-black">
                 {feature.title}

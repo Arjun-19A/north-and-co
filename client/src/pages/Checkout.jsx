@@ -171,7 +171,7 @@ const Checkout = () => {
   }
   return (
     <section className="bg-stone-100 min-h-screen w-360">
-      <div className=" mx-auto px-5 py-10 md:px-8">
+      <div className=" mx-auto px-4 py-10 md:px-8">
         <div className="pb-6 border-b border-gray-300">
           <h1 className="text-4xl font-light tracking-tight">Checkout</h1>
           <p className="text-black/50">Complete your order securely.</p>

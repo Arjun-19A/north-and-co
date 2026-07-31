@@ -4,7 +4,7 @@ const NewArrivals = ({ products, loading, error }) => {
   return (
     <>
       <section className="bg-stone-100 w-full">
-        <div className="py-12 md:py-16 max-w-360 mx-auto px-8">
+        <div className="py-12 md:py-16 max-w-360 mx-auto px-5 md:px-8">
           <div className="mb-10 flex items-end justify-between">
             <div>
               <span className="block text-[11px] tracking-[0.22em] uppercase font-light mb-2">

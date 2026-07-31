@@ -6,6 +6,7 @@ const BestSellerProduct = ({ id, name, image, price, discountPrice }) => {
       <div className="overflow-hidden aspect-2/3 relative shadow-sm group-hover:shadow-lg hover:-translate-y-1 transition-all duration-500 bg-transparent">
         <img
           className="absolute inset-0 h-full w-full  object-contain transition-transform duration-800 ease-out group-hover:scale-105"
+          loading="lazy"
           src={image}
           alt={name}
         />
