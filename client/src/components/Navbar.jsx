@@ -197,7 +197,7 @@ const Navbar = () => {
       <div
         className={`fixed top-0 left-0 w-full z-40 bg-stone-100 border-y-2 border-gray-200 overflow-hidden transition-all duration-300 ${
           searchOpen
-            ? "translate-y-[50px] opacity-100"
+            ? "translate-y-12.5 opacity-100"
             : "translate-y-0 opacity-0 pointer-events-none"
         }`}
       >

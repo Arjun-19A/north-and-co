@@ -1,4 +1,4 @@
-const CheckoutSteps = ({ currentStep, completedSteps }) => {
+const CheckoutSteps = ({ completedSteps }) => {
   const steps = [
     {
       id: 1,
@@ -20,7 +20,7 @@ const CheckoutSteps = ({ currentStep, completedSteps }) => {
         <div key={step.id} className="flex items-center gap-4">
           <div
             className={`
-h-8 w-8 rounded-full border
+h-4 w-4 rounded-full border
 flex items-center justify-center
 
 ${
