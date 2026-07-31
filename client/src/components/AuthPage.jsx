@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsFillPersonFill, BsFillLockFill } from "react-icons/bs";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 import { clearError, loginUser, registerUser } from "../redux/slices/authSlice";
 import { mergeCart } from "../redux/slices/cartSlice";
@@ -11,6 +12,7 @@ const AuthPage = ({ type }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -118,11 +120,11 @@ const AuthPage = ({ type }) => {
               />
             </div>
 
-            <div className="flex items-center mt-6 w-full bg-transparent border border-black/50 h-12 rounded-full overflow-hidden pl-6 gap-2">
+            <div className="flex items-center mt-6 w-full bg-transparent border border-black/50 h-12 rounded-full pl-6 pr-4 gap-2">
               <BsFillLockFill />
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
@@ -130,6 +132,14 @@ const AuthPage = ({ type }) => {
                 className="bg-transparent text-black/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
                 required
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="text-lg text-gray-500 hover:text-black transition-colors"
+              >
+                {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+              </button>
             </div>
 
             {isLogin && (
@@ -175,8 +185,8 @@ const AuthPage = ({ type }) => {
                   Already have an account?{" "}
                   <Link
                     className="text-black font-semibold hover:underline"
-                      to="/login"
-                      state={{ from: location.state?.from }}
+                    to="/login"
+                    state={{ from: location.state?.from }}
                   >
                     Sign In
                   </Link>
