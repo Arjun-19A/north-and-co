@@ -11,21 +11,30 @@ const getCart = async (userId, guestId) => {
 };
 
 const attachStockToCart = async (cart) => {
-  const updatedProducts = await Promise.all(
-    cart.products.map(async (item) => {
-      const product = await Product.findById(item.productId);
+  if (cart.products.length === 0) {
+    return {
+      ...cart.toObject(),
+      products: [],
+    };
+  }
+  const ids = cart.products.map((item) => item.productId);
 
-      return {
-        ...item.toObject(),
+  const products = await Product.find({
+    _id: { $in: ids },
+  }).select("_id countInStock");
 
-        countInStock: product?.countInStock || 0,
+  const productMap = new Map(products.map((p) => [p._id.toString(), p]));
 
-        isAvailable: product ? product.countInStock > 0 : false,
+  const updatedProducts = cart.products.map((item) => {
+    const product = productMap.get(item.productId.toString());
 
-        hasEnoughStock: product ? item.quantity <= product.countInStock : false,
-      };
-    }),
-  );
+    return {
+      ...item.toObject(),
+      countInStock: product?.countInStock || 0,
+      isAvailable: !!product && product.countInStock > 0,
+      hasEnoughStock: !!product && item.quantity <= product.countInStock,
+    };
+  });
 
   return {
     ...cart.toObject(),
@@ -46,7 +55,9 @@ const addProduct = async (req, res) => {
     });
   }
   try {
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productId).select(
+      "countInStock name images price discountPrice",
+    );
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     if (product.countInStock < quantity) {
@@ -158,7 +169,9 @@ const updateQuantity = async (req, res) => {
     if (quantity <= 0) {
       cart.products.splice(productIndex, 1);
     } else {
-      const product = await Product.findById(productId);
+      const product = await Product.findById(productId).select(
+        "countInStock name images price discountPrice",
+      );
 
       if (!product) {
         return res.status(404).json({
@@ -266,8 +279,10 @@ const mergeCart = async (req, res) => {
   }
 
   try {
-    const guestCart = await Cart.findOne({ guestId });
-    const userCart = await Cart.findOne({ user: req.user._id });
+    const [guestCart, userCart] = await Promise.all([
+      Cart.findOne({ guestId }),
+      Cart.findOne({ user: req.user._id }),
+    ]);
 
     if (guestCart) {
       if (guestCart.products.length === 0) {
@@ -299,9 +314,10 @@ const mergeCart = async (req, res) => {
         });
 
         userCart.totalPrice = calculateTotal(userCart.products);
-        await userCart.save();
-
-        await Cart.findOneAndDelete({ guestId });
+        await Promise.all([
+          userCart.save(),
+          Cart.findOneAndDelete({ guestId }),
+        ]);
 
         return res.status(200).json(userCart);
       } else {
@@ -310,11 +326,11 @@ const mergeCart = async (req, res) => {
         guestCart.expiresAt = null;
         await guestCart.save();
 
-        return res.status(200).json(guestCart);
+        return res.status(200).json(await attachStockToCart(guestCart));
       }
     } else {
       if (userCart) {
-        return res.status(200).json(userCart);
+        return res.status(200).json(await attachStockToCart(userCart));
       }
 
       return res.status(200).json({

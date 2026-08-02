@@ -30,9 +30,11 @@ const cartSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      index: true,
     },
     guestId: {
       type: String,
+      index: true,
     },
     products: [cartItemSchema],
     totalPrice: {
@@ -42,7 +44,7 @@ const cartSchema = new mongoose.Schema(
     },
     expiresAt: {
       type: Date,
-      default: null
+      default: null,
     },
   },
   {
@@ -50,9 +52,6 @@ const cartSchema = new mongoose.Schema(
   },
 );
 
-cartSchema.index(
-  { expiresAt: 1 },
-  { expireAfterSeconds: 0 }
-);
+cartSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 module.exports = mongoose.model("Cart", cartSchema);
